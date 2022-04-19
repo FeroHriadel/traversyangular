@@ -1,0 +1,18 @@
+<h2>Users</h2>
+
+<ul *ngIf="users.length > 0; else noUsers">
+   <li *ngFor="let user of users">
+       <h3>{{user.firstName}}</h3>
+       <ul>
+            <li>Age: {{user.age}}</li>
+            <li>Street: {{user.address.street}}</li>
+            <li>City: {{user.address.city}}</li>
+       </ul>
+   </li> 
+</ul>
+
+<ng-template #noUsers>
+    <h4>no users found</h4>
+</ng-template>
+
+<h4 *ngIf="!loaded">Loadng users...</h4>
