@@ -1,13 +1,28 @@
 <h2>Users</h2>
 
-<ul *ngIf="users.length > 0; else noUsers">
-   <li *ngFor="let user of users">
-       <h3>{{user.firstName}}</h3>
-       <ul>
-            <li>Age: {{user.age}}</li>
-            <li>Street: {{user.address.street}}</li>
-            <li>City: {{user.address.city}}</li>
-       </ul>
+<button [disabled]="!enableAdd" class="btn btn-block mb-3" [ngClass]="currentClasses">Add User</button> <!--class binding method 1-->
+
+<ul *ngIf="users.length > 0; else noUsers" class="list-unstyled">
+   <li *ngFor="let user of users" class="card card-body mb-2" [class.bg-light]="user.isActive" [style.border-color]="user.isActive ? 'green' : ''"> <!--class binding method 2--> <!-- style 1 -->
+        <div class="row">
+            <div class="col-sm-4">
+            <!-- 3 options to bind to user.image here: -->
+                <!-- <img *ngIf="user.image" [src]="user.image" alt="" class="img-fluid"> -->
+                <!-- <img bind-src="user.image" alt="" class="img-fluid"> -->
+                <img src="{{user.image}}" alt="{{user.firstName}}" class="img-fluid">
+            </div>
+            <div class="col-sm-8">
+                <h3 [ngStyle]="currentStyles">{{user.firstName | uppercase}}</h3> <!-- style 2 --> <!-- pipes -->
+                
+                <ul *ngIf="showExtended && user.age && user.address" class="list-group">
+                        <li class="list-group-item">Age: {{user.age}}</li>
+                        <li class="list-group-item">Street: {{user.address.street}}</li>
+                        <li class="list-group-item">City: {{user.address.city}}</li>
+                        <li class="list-group-item">Balance: {{user.balance | currency:"GBP"}}</li> <!-- pipes -->
+                        <li class="list-group-item">Joined: {{user.registered | date:"mm/dd/yyyy"}}</li> <!-- pipes -->
+                </ul>
+            </div>
+        </div>
    </li> 
 </ul>
 
